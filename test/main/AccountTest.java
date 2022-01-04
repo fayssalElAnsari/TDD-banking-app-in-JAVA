@@ -1,12 +1,13 @@
-import static org.junit.jupiter.api.Assertions.*;
+package main;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class AccountTest {
 
-	protected Account account;
+	protected Account newAccount;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,8 +34,8 @@ class AccountTest {
 	 */
 	@Test
 	void creditIntoAccountTest() {
-		int money = 10;
-		int moneyBefore = newAccount.getCredit();
+		float money = 10;
+		float moneyBefore = newAccount.getCredit();
 		newAccount.credit(money);
 		assertEquals(newAccount.getCredit(), moneyBefore + money);
 	}
