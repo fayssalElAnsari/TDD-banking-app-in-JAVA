@@ -12,7 +12,7 @@ import account.SavingsAccount;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
-import exception.SavingsAccountBelowZeroBalanceException;
+import exception.SavingsAccountNegativeBalanceException;
 import exception.WithdrawPassedLimitException;
 import exception.WithdrawingNegativeAmountException;
 import exception.WithdrawingZeroException;
@@ -32,7 +32,7 @@ public class SavingsAccountTest extends AccountTest{
 	@Test
 	@DisplayName("Withdraw From Savings Account Test")
 	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, 
-		WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountBelowZeroBalanceException {
+		WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountNegativeBalanceException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.deposit(toWithdraw*10);
@@ -43,7 +43,7 @@ public class SavingsAccountTest extends AccountTest{
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Savings Account Test")
 	public void multipleOperationsTest() throws DepositingNegativeAmountException, WithdrawingNegativeAmountException, 
-	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountBelowZeroBalanceException {
+	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
 		double expectedBalance = 0.0;
 		double[] deposits = {1230.4, 2340.3, 874.2};
 		double[] withdraws = {145.7, 2378.4, 387.2};
@@ -76,7 +76,7 @@ public class SavingsAccountTest extends AccountTest{
 		double balanceBefore = newAccount.getBalance();
 		double toWithdraw = balanceBefore + 0.1;
 		Exception thrownException = assertThrows(
-				SavingsAccountBelowZeroBalanceException.class,
+				SavingsAccountNegativeBalanceException.class,
 				() -> {
 					newAccount.withdraw(toWithdraw);
 				}

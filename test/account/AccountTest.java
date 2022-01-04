@@ -12,7 +12,7 @@ import account.Account;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
-import exception.SavingsAccountBelowZeroBalanceException;
+import exception.SavingsAccountNegativeBalanceException;
 import exception.WithdrawPassedLimitException;
 import exception.WithdrawingNegativeAmountException;
 import exception.WithdrawingZeroException;
@@ -24,6 +24,7 @@ public class AccountTest {
 	
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
+		
 	}
 
 	@BeforeEach
@@ -67,11 +68,11 @@ public class AccountTest {
 	 * @throws WithdrawPassedLimitException 
 	 * @throws DepositPassedLimitException 
 	 * @throws DepositingZeroException 
-	 * @throws SavingsAccountBelowZeroBalanceException 
+	 * @throws SavingsAccountNegativeBalanceException 
 	 */
 	@Test
 	@DisplayName("Withdraw From Account Test")
-	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountBelowZeroBalanceException {
+	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountNegativeBalanceException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.withdraw(toWithdraw);
@@ -113,7 +114,7 @@ public class AccountTest {
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Test")
 	public void multipleOperationsTest() throws DepositingNegativeAmountException, WithdrawingNegativeAmountException, 
-	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountBelowZeroBalanceException {
+	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
 		double expectedBalance = 0.0;
 		double[] deposits = {123.4, 234.3, 874.2};
 		double[] withdraws = {145.7, 2378.4, 387.2};

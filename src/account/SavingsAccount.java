@@ -3,7 +3,7 @@ package account;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
-import exception.SavingsAccountBelowZeroBalanceException;
+import exception.SavingsAccountNegativeBalanceException;
 import exception.WithdrawPassedLimitException;
 import exception.WithdrawingNegativeAmountException;
 import exception.WithdrawingZeroException;
@@ -24,10 +24,10 @@ public class SavingsAccount extends Account {
 	 * @throws DepositingNegativeAmountException 
 	 * @throws WithdrawingNegativeAmountException 
 	 * @throws WithdrawPassedLimitException 
-	 * @throws SavingsAccountBelowZeroBalanceException 
+	 * @throws SavingsAccountNegativeBalanceException 
 	 */
 	@Override
-	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountBelowZeroBalanceException{
+	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException{
 		if(toWithdraw > this.getDepositLimit()) {
 			throw new WithdrawPassedLimitException("error");
 		}
@@ -40,7 +40,7 @@ public class SavingsAccount extends Account {
 		if(this.getBalance() - toWithdraw >= 0){
 			this.withdraws.add(toWithdraw);	
 		} else {
-			throw new SavingsAccountBelowZeroBalanceException("error");
+			throw new SavingsAccountNegativeBalanceException("error");
 		}
 
 	}
