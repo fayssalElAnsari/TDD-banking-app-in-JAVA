@@ -88,7 +88,7 @@ public class SavingsAccountTest extends AccountTest{
 		this.newSavingsAccount.deposit(10000);
 		double oldBalance = this.newSavingsAccount.getBalance();
 		this.newSavingsAccount.interestDeposit();
-		assertEquals(this.newSavingsAccount.getBalance(), oldBalance*this.interestRate);
+		assertEquals(this.newSavingsAccount.getBalance(), oldBalance+oldBalance*this.interestRate);
 	}
 	
 }
