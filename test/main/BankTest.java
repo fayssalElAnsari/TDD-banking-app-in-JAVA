@@ -63,7 +63,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Deposit Into Account Test")
-	public void depositIntoAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void depositIntoAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
 		double toDeposit = 10000;
 		this.bank.openAccount();
 		this.bank.accountDeposit(0, toDeposit);
@@ -72,7 +72,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Deposit Into Savings Account Test")
-	public void depositIntoSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void depositIntoSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
 		double toDeposit = 10000;
 		this.bank.openSavingsAccount(this.interestRate);
 		this.bank.savingsAccountDeposit(0, 10000);
@@ -81,7 +81,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Withdraw From Account Test")
-	public void withdrawFromAccountTest() throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void withdrawFromAccountTest() throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
 		double toWithdraw = 10000;
 		this.bank.openAccount();
 		this.bank.accountWithdraw(0, toWithdraw);
@@ -90,7 +90,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Withdraw From Savings Account Test")
-	public void withdrawFromSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void withdrawFromSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
 		double toWithdraw = 10000;
 		this.bank.openSavingsAccount(this.interestRate);
 		this.bank.savingsAccountDeposit(0, 20000);

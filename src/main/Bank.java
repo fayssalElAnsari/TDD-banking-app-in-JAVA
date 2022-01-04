@@ -41,24 +41,35 @@ public class Bank {
 		
 	}
 
-	public void accountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void accountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
+		if(i > this.accounts.size()-1) {
+			throw new AccountDoesntExistException("error");
+		}
 		this.accounts.get(i).deposit(j);
 		
 	}
 
-	public void savingsAccountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void savingsAccountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
+		if(i > this.savingsAccounts.size()-1) {
+			throw new AccountDoesntExistException("error");
+		}
 		this.savingsAccounts.get(i).deposit(j);
 		
 	}
 
-	public void accountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void accountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
+		if(i > this.accounts.size()-1) {
+			throw new AccountDoesntExistException("error");
+		}
 		this.accounts.get(i).withdraw(j);
 		
 	}
 
-	public void savingsAccountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void savingsAccountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
+		if(i > this.savingsAccounts.size() - 1) {
+			throw new AccountDoesntExistException("error");
+		}
 		this.savingsAccounts.get(i).withdraw(j);
-		
 	}
 
 }
