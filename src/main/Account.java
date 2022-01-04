@@ -35,8 +35,13 @@ public class Account {
 	/**
 	 * adds credit
 	 * @param toCredit the credit to be added 
+	 * @throws CreditingZeroException 
 	 */
-	public void credit(double toCredit) throws CreditingNegativeAmmountException{
+	public void credit(double toCredit) throws CreditingNegativeAmmountException, CreditingZeroException{
+		
+		if(toCredit == 0) {
+			throw new CreditingZeroException("error");
+		}
 		if(toCredit <0) {
 			throw new CreditingNegativeAmmountException("error");
 		} else {
@@ -61,8 +66,12 @@ public class Account {
 	/**
 	 * add debit
 	 * @param toDebit the debit to be added
+	 * @throws DebitingZeroException 
 	 */
-	public void debit(double toDebit) throws DebitingNegativeAmmountException{
+	public void debit(double toDebit) throws DebitingNegativeAmmountException, DebitingZeroException{
+		if(toDebit == 0) {
+			throw new DebitingZeroException("error");
+		}
 		if(toDebit < 0) {
 			throw new DebitingNegativeAmmountException("error");
 		} else {

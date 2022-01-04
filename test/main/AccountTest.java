@@ -38,10 +38,11 @@ class AccountTest {
 	 * test out that when we credit into an account
 	 * the variable credit is incremented by the same value
 	 * @throws CreditingNegativeAmmountException 
+	 * @throws CreditingZeroException 
 	 */
 	@Test
 	@DisplayName("Credit Into Account Test")
-	void creditIntoAccountTest() throws CreditingNegativeAmmountException {
+	void creditIntoAccountTest() throws CreditingNegativeAmmountException, CreditingZeroException {
 		double toCredit = 10;
 		double creditBefore = newAccount.getCredit();
 		newAccount.credit(toCredit);
@@ -53,10 +54,11 @@ class AccountTest {
 	 * the variable debit is incremented by the same value
 	 * @throws CreditingNegativeAmmountException 
 	 * @throws DebitingNegativeAmmountException 
+	 * @throws DebitingZeroException 
 	 */
 	@Test
 	@DisplayName("Debit Into Account Test")
-	void debitIntoAccountTest() throws DebitingNegativeAmmountException {
+	void debitIntoAccountTest() throws DebitingNegativeAmmountException, DebitingZeroException {
 		double toDebit = 10;
 		double debitBefore = newAccount.getCredit();
 		newAccount.debit(toDebit);
@@ -97,7 +99,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Multiple Credits & Debits Test")
-	void multipleOperationsTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException {
+	void multipleOperationsTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException, CreditingZeroException, DebitingZeroException {
 		double expectedBalance = 0.0;
 		double[] credits = {123.4, 234.3, 874.2};
 		double[] debits = {145.7, 2378.4, 387.2};
@@ -115,7 +117,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("If No More Empty Space Combine Old Credits")
-	void noMoreEmptySpaceWhileCreditTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException {
+	void noMoreEmptySpaceWhileCreditTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException, CreditingZeroException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
 		double toCredit = 10;
@@ -130,7 +132,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("If No More Empty Space Combine Old Debits")
-	void noMoreEmptySpaceWhileDebitTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException {
+	void noMoreEmptySpaceWhileDebitTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException, DebitingZeroException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
 		double toDebit = 20;
@@ -153,7 +155,7 @@ class AccountTest {
 				CreditingZeroException.class, 
 				() -> 
 				{
-					newAccount.debit(toCredit);
+					newAccount.credit(toCredit);
 				}
 		);
 	
