@@ -26,4 +26,9 @@ public class Account {
 	public void credit(float toCredit) {
 		this.credit += toCredit;
 	}
+
+	public void debit(float toDebit) {
+		// TODO Auto-generated method stub
+		
+	}
 }

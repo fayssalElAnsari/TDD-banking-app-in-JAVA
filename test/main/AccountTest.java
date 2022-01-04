@@ -29,15 +29,27 @@ class AccountTest {
 	}
 	
 	/**
-	 * test out that when we deposit into an account
+	 * test out that when we credit into an account
 	 * the variable credit is incremented by the same value
 	 */
 	@Test
 	void creditIntoAccountTest() {
-		float money = 10;
-		float moneyBefore = newAccount.getCredit();
-		newAccount.credit(money);
-		assertEquals(newAccount.getCredit(), moneyBefore + money);
+		float toCredit = 10;
+		float creditBefore = newAccount.getCredit();
+		newAccount.credit(toCredit);
+		assertEquals(newAccount.getCredit(), creditBefore + toCredit);
+	}
+	
+	/**
+	 * test out that when we debit into an account
+	 * the variable debit is incremented by the same value
+	 */
+	@Test
+	void debitIntoAccountTest() {
+		float toDebit = 10;
+		float debitBefore = newAccount.getCredit();
+		newAccount.debit(toDebit);
+		assertEquals(newAccount.getDebit(), debitBefore + toDebit);
 	}
 	
 }
