@@ -80,14 +80,14 @@ class AccountTest {
 		float toCredit = -10;
 		assertTrue(toCredit<0);
 		Exception thrownException = assertThrows(
-					CreditingNegativeAmmountException.class, 
+					DebitingNegativeAmmountException.class, 
 					() -> 
 					{
 						newAccount.credit(toCredit);
 					}
 			);
 		
-		assertTrue(thrownException.getMessage().contains("can't credit negative ammount"));
+		assertTrue(thrownException.getMessage().contains("can't debit negative ammount"));
 	}
 	
 }

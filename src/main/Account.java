@@ -27,6 +27,10 @@ public class Account {
 		this.credit += toCredit;
 	}
 
+	/**
+	 * add debit
+	 * @param toDebit the debit to be added
+	 */
 	public void debit(float toDebit) {
 		this.debit += toDebit;
 		
