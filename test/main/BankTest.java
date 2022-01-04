@@ -31,6 +31,22 @@ public class BankTest {
 		assertTrue(savingsAccounts.size() == 0);
 	}
 
+	@Test
+	@DisplayName("Open New Account Test")
+	public void openNewAccountTest() {
+		int oldSize = this.bank.getAccounts().size();
+		this.bank.openAccount();
+		int newSize = this.bank.getAccounts().size();
+		assertTrue(newSize == oldSize + 1);
+	}
 
+	@Test
+	@DisplayName("Open New Savings Account Test")
+	public void openNewSavingsAccountTest() {
+		int oldSize = this.bank.getAccounts().size();
+		this.bank.openSavingsAccount();
+		int newSize = this.bank.getAccounts().size();
+		assertTrue(newSize == oldSize + 1);
+	}
 	
 }

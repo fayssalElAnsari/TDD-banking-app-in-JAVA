@@ -24,4 +24,14 @@ public class Bank {
 		return (ArrayList<SavingsAccount>) this.savingsAccounts;
 	}
 
+	public void openAccount() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void openSavingsAccount() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
