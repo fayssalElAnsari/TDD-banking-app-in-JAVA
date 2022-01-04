@@ -6,7 +6,8 @@ public class Account {
 	protected float debit;
 	
 	public Account() {
-
+		this.credit = 0;
+		this.debit = 0;
 		
 	}
 	
@@ -18,7 +19,11 @@ public class Account {
 		return this.debit;
 	}
 	
+	/**
+	 * adds credit
+	 * @param toCredit the credit to be added 
+	 */
 	public void credit(float toCredit) {
-		
+		this.credit += toCredit;
 	}
 }
