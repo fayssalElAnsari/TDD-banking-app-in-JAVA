@@ -40,8 +40,8 @@ class AccountTest {
 	@Test
 	@DisplayName("Credit Into Account Test")
 	void creditIntoAccountTest() throws CreditingNegativeAmmountException {
-		float toCredit = 10;
-		float creditBefore = newAccount.getCredit();
+		double toCredit = 10;
+		double creditBefore = newAccount.getCredit();
 		newAccount.credit(toCredit);
 		assertEquals(newAccount.getCredit(), creditBefore + toCredit);
 	}
@@ -55,8 +55,8 @@ class AccountTest {
 	@Test
 	@DisplayName("Debit Into Account Test")
 	void debitIntoAccountTest() throws DebitingNegativeAmmountException {
-		float toDebit = 10;
-		float debitBefore = newAccount.getCredit();
+		double toDebit = 10;
+		double debitBefore = newAccount.getCredit();
 		newAccount.debit(toDebit);
 		assertEquals(newAccount.getDebit(), debitBefore + toDebit);
 	}
@@ -64,7 +64,7 @@ class AccountTest {
 	@Test
 	@DisplayName("Credit Negative Ammount Throws Exception Test")
 	void cantCreditNegativeAmmount() {
-		float toCredit = -10;
+		double toCredit = -10;
 		assertTrue(toCredit<0);
 		Exception thrownException = assertThrows(
 					CreditingNegativeAmmountException.class, 
@@ -80,7 +80,7 @@ class AccountTest {
 	@Test
 	@DisplayName("Debit Negative Ammount Throws Exception Test")
 	void cantDebitNegativeAmmount() {
-		float toDebit = -10;
+		double toDebit = -10;
 		assertTrue(toDebit<0);
 		Exception thrownException = assertThrows(
 					DebitingNegativeAmmountException.class, 
@@ -91,6 +91,24 @@ class AccountTest {
 			);
 		
 		assertTrue(thrownException.getMessage().contains("can't debit negative ammount"));
+	}
+	
+	@Test
+	@DisplayName("Multiple Credits & Debits Test")
+	void multipleOperationsTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException {
+		double expectedBalance = 0;
+		double[] credits = {123, 234, 874};
+		double[] debits = {145.7, 2378.4, 387.2};
+		for(double credit: credits) {
+			newAccount.credit(credit);
+			expectedBalance += credit;
+		}
+		for(double debit: debits) {
+			newAccount.debit(debit);
+			expectedBalance -= debit;
+		}	
+		assertEquals(newAccount.getBalance(), expectedBalance);
+		
 	}
 	
 }

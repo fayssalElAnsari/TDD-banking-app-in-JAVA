@@ -2,8 +2,8 @@ package main;
 
 public class Account {
 
-	protected float credit;
-	protected float debit;
+	protected double credit;
+	protected double debit;
 	
 	public Account() {
 		this.credit = 0;
@@ -11,11 +11,11 @@ public class Account {
 		
 	}
 	
-	public float getCredit() {
+	public double getCredit() {
 		return this.credit;
 	}
 	
-	public float getDebit() {
+	public double getDebit() {
 		return this.debit;
 	}
 	
@@ -23,7 +23,7 @@ public class Account {
 	 * adds credit
 	 * @param toCredit the credit to be added 
 	 */
-	public void credit(float toCredit) throws CreditingNegativeAmmountException{
+	public void credit(double toCredit) throws CreditingNegativeAmmountException{
 		if(toCredit <0) {
 			throw new CreditingNegativeAmmountException("error");
 		} else {
@@ -35,7 +35,7 @@ public class Account {
 	 * add debit
 	 * @param toDebit the debit to be added
 	 */
-	public void debit(float toDebit) throws DebitingNegativeAmmountException{
+	public void debit(double toDebit) throws DebitingNegativeAmmountException{
 		if(toDebit < 0) {
 			throw new DebitingNegativeAmmountException("error");
 		} else {
@@ -43,5 +43,10 @@ public class Account {
 		}
 
 		
+	}
+
+	public Double getBalance() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
