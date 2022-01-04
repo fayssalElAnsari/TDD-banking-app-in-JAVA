@@ -35,10 +35,11 @@ class AccountTest {
 	/**
 	 * test out that when we credit into an account
 	 * the variable credit is incremented by the same value
+	 * @throws CreditingNegativeAmmountException 
 	 */
 	@Test
 	@DisplayName("Credit Into Account Test")
-	void creditIntoAccountTest() {
+	void creditIntoAccountTest() throws CreditingNegativeAmmountException {
 		float toCredit = 10;
 		float creditBefore = newAccount.getCredit();
 		newAccount.credit(toCredit);
@@ -48,10 +49,12 @@ class AccountTest {
 	/**
 	 * test out that when we debit into an account
 	 * the variable debit is incremented by the same value
+	 * @throws CreditingNegativeAmmountException 
+	 * @throws DebitingNegativeAmmountException 
 	 */
 	@Test
 	@DisplayName("Debit Into Account Test")
-	void debitIntoAccountTest() {
+	void debitIntoAccountTest() throws DebitingNegativeAmmountException {
 		float toDebit = 10;
 		float debitBefore = newAccount.getCredit();
 		newAccount.debit(toDebit);
@@ -77,13 +80,13 @@ class AccountTest {
 	@Test
 	@DisplayName("Debit Negative Ammount Throws Exception Test")
 	void cantDebitNegativeAmmount() {
-		float toCredit = -10;
-		assertTrue(toCredit<0);
+		float toDebit = -10;
+		assertTrue(toDebit<0);
 		Exception thrownException = assertThrows(
 					DebitingNegativeAmmountException.class, 
 					() -> 
 					{
-						newAccount.credit(toCredit);
+						newAccount.debit(toDebit);
 					}
 			);
 		

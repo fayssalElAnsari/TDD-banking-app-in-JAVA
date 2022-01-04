@@ -23,16 +23,25 @@ public class Account {
 	 * adds credit
 	 * @param toCredit the credit to be added 
 	 */
-	public void credit(float toCredit) {
-		this.credit += toCredit;
+	public void credit(float toCredit) throws CreditingNegativeAmmountException{
+		if(toCredit <0) {
+			throw new CreditingNegativeAmmountException("error");
+		} else {
+			this.credit += toCredit;
+		}
 	}
 
 	/**
 	 * add debit
 	 * @param toDebit the debit to be added
 	 */
-	public void debit(float toDebit) {
-		this.debit += toDebit;
+	public void debit(float toDebit) throws DebitingNegativeAmmountException{
+		if(toDebit < 0) {
+			throw new DebitingNegativeAmmountException("error");
+		} else {
+			this.debit += toDebit;	
+		}
+
 		
 	}
 }
