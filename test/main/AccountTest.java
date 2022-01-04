@@ -10,16 +10,16 @@ import org.junit.jupiter.api.Test;
 
 import util.MathFunc;
 
-class AccountTest {
+public class AccountTest {
 
 	protected Account newAccount;
 	
 	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() throws Exception {
 	}
 
 	@BeforeEach
-	void setUp() throws Exception {
+	public void setUp() throws Exception {
 		newAccount = new Account();
 	}
 
@@ -29,7 +29,7 @@ class AccountTest {
 	 */
 	@Test
 	@DisplayName("Create Account Test")
-	void createAccountTest() {
+	public void createAccountTest() {
 		assertEquals(newAccount.getDeposit(), 0);
 		assertEquals(newAccount.getWithdraw(), 0);
 	}
@@ -43,7 +43,7 @@ class AccountTest {
 	 */
 	@Test
 	@DisplayName("Deposit Into Account Test")
-	void depositIntoAccountTest() throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException {
+	public void depositIntoAccountTest() throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException {
 		double toDeposit = 10;
 		double depositBefore = newAccount.getDeposit();
 		newAccount.deposit(toDeposit);
@@ -54,22 +54,22 @@ class AccountTest {
 	 * test out that when we withdraw into an account
 	 * the variable withdraw is incremented by the same value
 	 * @throws DepositingNegativeAmmountException 
-	 * @throws WithdrawingNegativeAmmountException 
+	 * @throws WithdrawingNegativeAmountException 
 	 * @throws WithdrawingZeroException 
 	 * @throws WithdrawPassedLimitException 
 	 */
 	@Test
-	@DisplayName("Withdraw Into Account Test")
-	void withdrawIntoAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmmountException, WithdrawPassedLimitException {
+	@DisplayName("Withdraw From Account Test")
+	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException {
 		double toWithdraw = 10;
-		double withdrawBefore = newAccount.getDeposit();
+		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.withdraw(toWithdraw);
 		assertEquals(newAccount.getWithdraw(), withdrawBefore + toWithdraw);
 	}
 	
 	@Test
 	@DisplayName("Deposit Negative Ammount Throws Exception Test")
-	void cantDepositNegativeAmmount() {
+	public void cantDepositNegativeAmmount() {
 		double toDeposit = -10;
 		assertTrue(toDeposit<0);
 		Exception thrownException = assertThrows(
@@ -85,11 +85,11 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Withdraw Negative Ammount Throws Exception Test")
-	void cantWithdrawNegativeAmmount() {
+	public void cantWithdrawNegativeAmmount() {
 		double toWithdraw = -10;
 		assertTrue(toWithdraw < 0);
 		Exception thrownException = assertThrows(
-					WithdrawingNegativeAmmountException.class, 
+					WithdrawingNegativeAmountException.class, 
 					() -> 
 					{
 						newAccount.withdraw(toWithdraw);
@@ -101,7 +101,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Test")
-	void multipleOperationsTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, 
+	public void multipleOperationsTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmountException, 
 	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException {
 		double expectedBalance = 0.0;
 		double[] deposits = {123.4, 234.3, 874.2};
@@ -120,7 +120,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Can't Deposit 0 Test")
-	void cantDepositZeroTest() throws DepositingZeroException {
+	public void cantDepositZeroTest() throws DepositingZeroException {
 		double toDeposit = 0;
 		assertTrue(toDeposit == 0);
 		
@@ -137,7 +137,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Can't Withdraw 0 Test")
-	void cantWithdrawZeroTest() throws WithdrawingZeroException {
+	public void cantWithdrawZeroTest() throws WithdrawingZeroException {
 		double toWithdraw = 0;
 		assertTrue(toWithdraw == 0);
 		
@@ -154,7 +154,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Deposit Limit Test")
-	void cantDepositPastLimitTest() {
+	public void cantDepositPastLimitTest() {
 		double depositLimit = newAccount.getDepositLimit();
 		
 		Exception thrownException = assertThrows(
@@ -170,7 +170,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Withdraw Limit Test")
-	void cantWithdrawPastLimitTest() {
+	public void cantWithdrawPastLimitTest() {
 		double withdrawLimit = newAccount.getWithdrawLimit();
 		
 		Exception thrownException = assertThrows(

@@ -61,10 +61,10 @@ public class Account {
 	 * @param toWithdraw the withdraw to be added
 	 * @throws WithdrawingZeroException 
 	 * @throws DepositingNegativeAmmountException 
-	 * @throws WithdrawingNegativeAmmountException 
+	 * @throws WithdrawingNegativeAmountException 
 	 * @throws WithdrawPassedLimitException 
 	 */
-	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmmountException, WithdrawingZeroException, WithdrawPassedLimitException{
+	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException{
 		if(toWithdraw > this.getDepositLimit()) {
 			throw new WithdrawPassedLimitException("error");
 		}
@@ -72,7 +72,7 @@ public class Account {
 			throw new WithdrawingZeroException("error");
 		}
 		if(toWithdraw < 0) {
-			throw new WithdrawingNegativeAmmountException("error");
+			throw new WithdrawingNegativeAmountException("error");
 		} else {
 			this.withdraws.add(toWithdraw);	
 		}
