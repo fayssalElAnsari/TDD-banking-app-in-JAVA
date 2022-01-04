@@ -41,4 +41,9 @@ public class SavingsAccount extends Account {
 		return this.interestRate;
 	}
 
+	public void interestDeposit() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -12,10 +12,13 @@ import util.MathFunc;
 
 public class SavingsAccountTest extends AccountTest{
 	protected SavingsAccount newSavingsAccount;
+	double interestRate;
 	
 	@BeforeEach
 	public void setUp() throws Exception {
 		this.newAccount = new SavingsAccount(4.5);
+		interestRate = 3.2;
+		this.newSavingsAccount = new SavingsAccount(interestRate);
 	}
 	
 	@Test
@@ -76,9 +79,16 @@ public class SavingsAccountTest extends AccountTest{
 	@Test
 	@DisplayName("Interest Rate Is Correct Test")
 	public void interestRateIsCorrectTest() {
-		double interestRate = 3.2;
-		this.newSavingsAccount = new SavingsAccount(interestRate);
 		assertEquals(this.newSavingsAccount.getInterestRate(), interestRate);
+	}
+	
+	@Test
+	@DisplayName("Due Interest Deposit Test")
+	public void dueInterestDepositTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		this.newSavingsAccount.deposit(10000);
+		double oldBalance = this.newSavingsAccount.getBalance();
+		this.newSavingsAccount.interestDeposit();
+		assertEquals(this.newSavingsAccount.getBalance(), oldBalance*this.interestRate);
 	}
 	
 }
