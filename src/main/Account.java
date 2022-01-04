@@ -2,6 +2,10 @@ package main;
 
 public class Account {
 	
+	private static final double depositLimit = 100000;
+
+	private static final double withdrawLimit = 100000;
+
 	int maxHistorySize = 100;
 
 	protected double[] deposit;
@@ -36,9 +40,12 @@ public class Account {
 	 * adds deposit
 	 * @param toDeposit the deposit to be added 
 	 * @throws DepositingZeroException 
+	 * @throws DepositPassedLimitException 
 	 */
-	public void deposit(double toDeposit) throws DepositingNegativeAmmountException, DepositingZeroException{
-		
+	public void deposit(double toDeposit) throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException{
+		if(toDeposit > this.getDepositLimit()) {
+			throw new DepositPassedLimitException("error");
+		}
 		if(toDeposit == 0) {
 			throw new DepositingZeroException("error");
 		}
@@ -69,8 +76,12 @@ public class Account {
 	 * @throws WithdrawingZeroException 
 	 * @throws DepositingNegativeAmmountException 
 	 * @throws WithdrawingNegativeAmmountException 
+	 * @throws WithdrawPassedLimitException 
 	 */
-	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmmountException, WithdrawingZeroException{
+	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmmountException, WithdrawingZeroException, WithdrawPassedLimitException{
+		if(toWithdraw > this.getDepositLimit()) {
+			throw new WithdrawPassedLimitException("error");
+		}
 		if(toWithdraw == 0) {
 			throw new WithdrawingZeroException("error");
 		}
@@ -106,7 +117,10 @@ public class Account {
 	}
 
 	public double getDepositLimit() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.depositLimit;
+	}
+	
+	public double getWithdrawLimit() {
+		return this.withdrawLimit;
 	}
 }

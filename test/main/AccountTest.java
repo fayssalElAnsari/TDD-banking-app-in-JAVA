@@ -39,10 +39,11 @@ class AccountTest {
 	 * the variable deposit is incremented by the same value
 	 * @throws DepositingNegativeAmmountException 
 	 * @throws DepositingZeroException 
+	 * @throws DepositPassedLimitException 
 	 */
 	@Test
 	@DisplayName("Deposit Into Account Test")
-	void depositIntoAccountTest() throws DepositingNegativeAmmountException, DepositingZeroException {
+	void depositIntoAccountTest() throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException {
 		double toDeposit = 10;
 		double depositBefore = newAccount.getDeposit();
 		newAccount.deposit(toDeposit);
@@ -55,10 +56,11 @@ class AccountTest {
 	 * @throws DepositingNegativeAmmountException 
 	 * @throws WithdrawingNegativeAmmountException 
 	 * @throws WithdrawingZeroException 
+	 * @throws WithdrawPassedLimitException 
 	 */
 	@Test
 	@DisplayName("Withdraw Into Account Test")
-	void withdrawIntoAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmmountException {
+	void withdrawIntoAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmmountException, WithdrawPassedLimitException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getDeposit();
 		newAccount.withdraw(toWithdraw);
@@ -99,7 +101,8 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Test")
-	void multipleOperationsTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, DepositingZeroException, WithdrawingZeroException {
+	void multipleOperationsTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, 
+	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException {
 		double expectedBalance = 0.0;
 		double[] deposits = {123.4, 234.3, 874.2};
 		double[] withdraws = {145.7, 2378.4, 387.2};
@@ -117,7 +120,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("If No More Empty Space Combine Old Deposits")
-	void noMoreEmptySpaceWhileDepositTest() throws DepositingNegativeAmmountException, DepositingZeroException {
+	void noMoreEmptySpaceWhileDepositTest() throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
 		double toDeposit = 10;
@@ -132,7 +135,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("If No More Empty Space Combine Old Withdraws")
-	void noMoreEmptySpaceWhileWithdrawTest() throws WithdrawingNegativeAmmountException, WithdrawingZeroException {
+	void noMoreEmptySpaceWhileWithdrawTest() throws WithdrawingNegativeAmmountException, WithdrawingZeroException, WithdrawPassedLimitException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
 		double toWithdraw = 20;
@@ -185,30 +188,30 @@ class AccountTest {
 		double depositLimit = newAccount.getDepositLimit();
 		
 		Exception thrownException = assertThrows(
-				depositPastLimitException.class,
+				DepositPassedLimitException.class,
 				() ->
 				{
 					newAccount.deposit(depositLimit + 0.1);
 				}
 				
 		);
-		assertTrue(thrownException.getMessage().contains("passed lmit of deposit"));
+		assertTrue(thrownException.getMessage().contains("passed limit of deposit"));
 	}
 	
 	@Test
 	@DisplayName("Withdraw Limit Test")
 	void cantWithdrawPastLimitTest() {
-		double depositLimit = newAccount.getDepositLimit();
+		double withdrawLimit = newAccount.getWithdrawLimit();
 		
 		Exception thrownException = assertThrows(
-				withdrawPastLimitException.class,
+				WithdrawPassedLimitException.class,
 				() ->
 				{
-					newAccount.deposit(depositLimit + 0.1);
+					newAccount.withdraw(withdrawLimit + 0.1);
 				}
 				
 		);
-		assertTrue(thrownException.getMessage().contains("passed lmit of deposit"));
+		assertTrue(thrownException.getMessage().contains("passed limit of withdraw"));
 	}
 	
 	
