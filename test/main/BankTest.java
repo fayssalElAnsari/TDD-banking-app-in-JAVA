@@ -1,6 +1,8 @@
 package main;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +51,71 @@ public class BankTest {
 		this.bank.openSavingsAccount(this.interestRate);
 		int newSize = this.bank.getSavingsAccounts().size();
 		assertTrue(newSize == oldSize + 1);
+	}
+	
+	@Test
+	@DisplayName("Deposit Into Account Test")
+	public void depositIntoAccountTest() {
+		this.bank.openAccount();
+		this.bank.accountDeposit(0, 10000);
+	}
+	
+	@Test
+	@DisplayName("Deposit Into Savings Account Test")
+	public void depositIntoSavingsAccountTest() {
+		this.bank.openSavingsAccount(this.interestRate);
+		this.bank.savingsAccountDeposit(0, 10000);
+	}
+	
+	@Test
+	@DisplayName("Withdraw From Account Test")
+	public void withdrawFromAccountTest() {
+		this.bank.openAccount();
+		this.bank.accountWithdraw(0, 10000);
+	}
+	
+	@Test
+	@DisplayName("Withdraw From Savings Account Test")
+	public void withdrawFromSavingsAccountTest() {
+		this.bank.openSavingsAccount(this.interestRate);
+		this.bank.savingsAccountDeposit(0, 20000);
+		this.bank.savingsAccountWithdraw(0, 10000);
+	}
+	
+	@Test
+	@DisplayName("Account Doesn't Exist Test")
+	public void accountDoesntExistTest() {
+		fail();
+	}
+	
+	@Test
+	@DisplayName("Savings Account Doesn't Exit Test")
+	public void savingsAccountDoesntExistTest() {
+		fail();
+	}
+	
+	@Test
+	@DisplayName("Transfer From Account To Account Test")
+	public void transferFromAccountToAccountTest() {
+		fail();
+	}
+	
+	@Test
+	@DisplayName("Transfer From Account To Savings Account Test")
+	public void transferFromAccountToSavingsAccountTest() {
+		fail();
+	}
+	
+	@Test
+	@DisplayName("Transfer From Savings Account To Account Test")
+	public void transferFromSavingsAccountToAccountTest() {
+		fail();
+	}
+	
+	@Test
+	@DisplayName("Transfer From Savings Account To Savings Account Test")
+	public void transferFromSavingsAccountToSavingsAccountTest() {
+		fail();
 	}
 	
 }

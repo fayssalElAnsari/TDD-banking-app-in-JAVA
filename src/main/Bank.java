@@ -34,4 +34,24 @@ public class Bank {
 		
 	}
 
+	public void accountDeposit(int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void savingsAccountDeposit(int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void accountWithdraw(int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void savingsAccountWithdraw(int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
