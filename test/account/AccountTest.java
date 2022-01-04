@@ -1,4 +1,4 @@
-package main;
+package account;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -8,6 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import account.Account;
+import exception.DepositPassedLimitException;
+import exception.DepositingNegativeAmountException;
+import exception.DepositingZeroException;
+import exception.SavingsAccountBelowZeroBalanceException;
+import exception.WithdrawPassedLimitException;
+import exception.WithdrawingNegativeAmountException;
+import exception.WithdrawingZeroException;
 import util.MathFunc;
 
 public class AccountTest {
