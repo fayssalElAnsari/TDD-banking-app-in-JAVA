@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import account.Account;
 import account.SavingsAccount;
+import exception.AccountDoesntExistException;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
@@ -101,7 +102,7 @@ public class BankTest {
 	@Test
 	@DisplayName("Account Doesn't Exist Test")
 	public void accountDoesntExistTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
-		Exception thrownException = assertThrows( 
+		Exception thrownException = assertThrows( 	
 					AccountDoesntExistException.class,
 					() -> {
 						this.bank.accountDeposit(0, 10000);
