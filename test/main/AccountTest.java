@@ -143,4 +143,40 @@ class AccountTest {
 		assertTrue(this.newAccount.getDebit() == oldDebit + toDebit);
 	}
 	
+	@Test
+	@DisplayName("Can't Credit 0 Test")
+	void cantCreditZeroTest() throws CreditingZeroException {
+		double toCredit = 0;
+		assertTrue(toCredit == 0);
+		
+		Exception thrownException = assertThrows(
+				CreditingZeroException.class, 
+				() -> 
+				{
+					newAccount.debit(toCredit);
+				}
+		);
+	
+	assertTrue(thrownException.getMessage().contains("can't credit 0 ammount"));
+		
+	}
+	
+	@Test
+	@DisplayName("Can't Debit 0 Test")
+	void cantDebitZeroTest() throws DebitingZeroException {
+		double toDebit = 0;
+		assertTrue(toDebit == 0);
+		
+		Exception thrownException = assertThrows(
+				DebitingZeroException.class, 
+				() -> 
+				{
+					newAccount.debit(toDebit);
+				}
+		);
+	
+	assertTrue(thrownException.getMessage().contains("can't debit 0 ammount"));
+		
+	}
+	
 }
