@@ -117,7 +117,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("If No More Empty Space Combine Old Deposits")
-	void noMoreEmptySpaceWhileDepositTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, DepositingZeroException {
+	void noMoreEmptySpaceWhileDepositTest() throws DepositingNegativeAmmountException, DepositingZeroException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
 		double toDeposit = 10;
@@ -132,7 +132,7 @@ class AccountTest {
 	
 	@Test
 	@DisplayName("If No More Empty Space Combine Old Withdraws")
-	void noMoreEmptySpaceWhileWithdrawTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, WithdrawingZeroException {
+	void noMoreEmptySpaceWhileWithdrawTest() throws WithdrawingNegativeAmmountException, WithdrawingZeroException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
 		double toWithdraw = 20;
@@ -158,8 +158,7 @@ class AccountTest {
 					newAccount.deposit(toDeposit);
 				}
 		);
-	
-	assertTrue(thrownException.getMessage().contains("can't deposit 0 ammount"));
+		assertTrue(thrownException.getMessage().contains("can't deposit 0 ammount"));
 		
 	}
 	
@@ -176,11 +175,41 @@ class AccountTest {
 					newAccount.withdraw(toWithdraw);
 				}
 		);
-	
-	assertTrue(thrownException.getMessage().contains("can't withdraw 0 ammount"));
+		assertTrue(thrownException.getMessage().contains("can't withdraw 0 ammount"));
 		
 	}
 	
-
+	@Test
+	@DisplayName("Deposit Limit Test")
+	void cantDepositPastLimitTest() {
+		double depositLimit = newAccount.getDepositLimit();
+		
+		Exception thrownException = assertThrows(
+				depositPastLimitException.class,
+				() ->
+				{
+					newAccount.deposit(depositLimit + 0.1);
+				}
+				
+		);
+		assertTrue(thrownException.getMessage().contains("passed lmit of deposit"));
+	}
+	
+	@Test
+	@DisplayName("Withdraw Limit Test")
+	void cantWithdrawPastLimitTest() {
+		double depositLimit = newAccount.getDepositLimit();
+		
+		Exception thrownException = assertThrows(
+				withdrawPastLimitException.class,
+				() ->
+				{
+					newAccount.deposit(depositLimit + 0.1);
+				}
+				
+		);
+		assertTrue(thrownException.getMessage().contains("passed lmit of deposit"));
+	}
+	
 	
 }

@@ -104,4 +104,9 @@ public class Account {
 	public int getMaxHistorySize() {
 		return this.maxHistorySize;
 	}
+
+	public double getDepositLimit() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
