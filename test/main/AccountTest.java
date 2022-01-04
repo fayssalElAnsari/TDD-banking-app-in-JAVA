@@ -24,161 +24,163 @@ class AccountTest {
 	}
 
 	/**
-	 * verifie that when the account is created the credit
-	 * and debit are 0
+	 * verifie that when the account is created the deposit
+	 * and withdraw are 0
 	 */
 	@Test
 	@DisplayName("Create Account Test")
 	void createAccountTest() {
-		assertEquals(newAccount.getCredit(), 0);
-		assertEquals(newAccount.getDebit(), 0);
+		assertEquals(newAccount.getDeposit(), 0);
+		assertEquals(newAccount.getWithdraw(), 0);
 	}
 	
 	/**
-	 * test out that when we credit into an account
-	 * the variable credit is incremented by the same value
-	 * @throws CreditingNegativeAmmountException 
-	 * @throws CreditingZeroException 
+	 * test out that when we deposit into an account
+	 * the variable deposit is incremented by the same value
+	 * @throws DepositingNegativeAmmountException 
+	 * @throws DepositingZeroException 
 	 */
 	@Test
-	@DisplayName("Credit Into Account Test")
-	void creditIntoAccountTest() throws CreditingNegativeAmmountException, CreditingZeroException {
-		double toCredit = 10;
-		double creditBefore = newAccount.getCredit();
-		newAccount.credit(toCredit);
-		assertEquals(newAccount.getCredit(), creditBefore + toCredit);
+	@DisplayName("Deposit Into Account Test")
+	void depositIntoAccountTest() throws DepositingNegativeAmmountException, DepositingZeroException {
+		double toDeposit = 10;
+		double depositBefore = newAccount.getDeposit();
+		newAccount.deposit(toDeposit);
+		assertEquals(newAccount.getDeposit(), depositBefore + toDeposit);
 	}
 	
 	/**
-	 * test out that when we debit into an account
-	 * the variable debit is incremented by the same value
-	 * @throws CreditingNegativeAmmountException 
-	 * @throws DebitingNegativeAmmountException 
-	 * @throws DebitingZeroException 
+	 * test out that when we withdraw into an account
+	 * the variable withdraw is incremented by the same value
+	 * @throws DepositingNegativeAmmountException 
+	 * @throws WithdrawingNegativeAmmountException 
+	 * @throws WithdrawingZeroException 
 	 */
 	@Test
-	@DisplayName("Debit Into Account Test")
-	void debitIntoAccountTest() throws DebitingNegativeAmmountException, DebitingZeroException {
-		double toDebit = 10;
-		double debitBefore = newAccount.getCredit();
-		newAccount.debit(toDebit);
-		assertEquals(newAccount.getDebit(), debitBefore + toDebit);
+	@DisplayName("Withdraw Into Account Test")
+	void withdrawIntoAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmmountException {
+		double toWithdraw = 10;
+		double withdrawBefore = newAccount.getDeposit();
+		newAccount.withdraw(toWithdraw);
+		assertEquals(newAccount.getWithdraw(), withdrawBefore + toWithdraw);
 	}
 	
 	@Test
-	@DisplayName("Credit Negative Ammount Throws Exception Test")
-	void cantCreditNegativeAmmount() {
-		double toCredit = -10;
-		assertTrue(toCredit<0);
+	@DisplayName("Deposit Negative Ammount Throws Exception Test")
+	void cantDepositNegativeAmmount() {
+		double toDeposit = -10;
+		assertTrue(toDeposit<0);
 		Exception thrownException = assertThrows(
-					CreditingNegativeAmmountException.class, 
+					DepositingNegativeAmmountException.class, 
 					() -> 
 					{
-						newAccount.credit(toCredit);
+						newAccount.deposit(toDeposit);
 					}
 			);
 		
-		assertTrue(thrownException.getMessage().contains("can't credit negative ammount"));
+		assertTrue(thrownException.getMessage().contains("can't deposit negative ammount"));
 	}
 	
 	@Test
-	@DisplayName("Debit Negative Ammount Throws Exception Test")
-	void cantDebitNegativeAmmount() {
-		double toDebit = -10;
-		assertTrue(toDebit<0);
+	@DisplayName("Withdraw Negative Ammount Throws Exception Test")
+	void cantWithdrawNegativeAmmount() {
+		double toWithdraw = -10;
+		assertTrue(toWithdraw < 0);
 		Exception thrownException = assertThrows(
-					DebitingNegativeAmmountException.class, 
+					WithdrawingNegativeAmmountException.class, 
 					() -> 
 					{
-						newAccount.debit(toDebit);
+						newAccount.withdraw(toWithdraw);
 					}
 			);
 		
-		assertTrue(thrownException.getMessage().contains("can't debit negative ammount"));
+		assertTrue(thrownException.getMessage().contains("can't withdraw negative ammount"));
 	}
 	
 	@Test
-	@DisplayName("Multiple Credits & Debits Test")
-	void multipleOperationsTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException, CreditingZeroException, DebitingZeroException {
+	@DisplayName("Multiple Deposits & Withdraws Test")
+	void multipleOperationsTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, DepositingZeroException, WithdrawingZeroException {
 		double expectedBalance = 0.0;
-		double[] credits = {123.4, 234.3, 874.2};
-		double[] debits = {145.7, 2378.4, 387.2};
-		for(double credit: credits) {
-			newAccount.credit(credit);
-			expectedBalance += credit;
+		double[] deposits = {123.4, 234.3, 874.2};
+		double[] withdraws = {145.7, 2378.4, 387.2};
+		for(double deposit: deposits) {
+			newAccount.deposit(deposit);
+			expectedBalance += deposit;
 		}
-		for(double debit: debits) {
-			newAccount.debit(debit);
-			expectedBalance -= debit;
+		for(double withdraw: withdraws) {
+			newAccount.withdraw(withdraw);
+			expectedBalance -= withdraw;
 		}	
 		assertTrue(MathFunc.round(newAccount.getBalance(), 2) == MathFunc.round(expectedBalance, 2));
 		
 	}
 	
 	@Test
-	@DisplayName("If No More Empty Space Combine Old Credits")
-	void noMoreEmptySpaceWhileCreditTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException, CreditingZeroException {
+	@DisplayName("If No More Empty Space Combine Old Deposits")
+	void noMoreEmptySpaceWhileDepositTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, DepositingZeroException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
-		double toCredit = 10;
+		double toDeposit = 10;
 		while(currentHistoryIndex <= maxHistorySize) {
-			newAccount.credit(toCredit);
+			newAccount.deposit(toDeposit);
 			currentHistoryIndex++;
 		}
-		double oldCredit = this.newAccount.getCredit();
-		this.newAccount.credit(toCredit);
-		assertTrue(this.newAccount.getCredit() == oldCredit + toCredit);
+		double oldDeposit = this.newAccount.getDeposit();
+		this.newAccount.deposit(toDeposit);
+		assertTrue(this.newAccount.getDeposit() == oldDeposit + toDeposit);
 	}
 	
 	@Test
-	@DisplayName("If No More Empty Space Combine Old Debits")
-	void noMoreEmptySpaceWhileDebitTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException, DebitingZeroException {
+	@DisplayName("If No More Empty Space Combine Old Withdraws")
+	void noMoreEmptySpaceWhileWithdrawTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmmountException, WithdrawingZeroException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
-		double toDebit = 20;
+		double toWithdraw = 20;
 		while(currentHistoryIndex <= maxHistorySize) {
-			newAccount.debit(toDebit);
+			newAccount.withdraw(toWithdraw);
 			currentHistoryIndex++;
 		}
-		double oldDebit = this.newAccount.getDebit();
-		this.newAccount.debit(toDebit);
-		assertTrue(this.newAccount.getDebit() == oldDebit + toDebit);
+		double oldWithdraw = this.newAccount.getWithdraw();
+		this.newAccount.withdraw(toWithdraw);
+		assertTrue(this.newAccount.getWithdraw() == oldWithdraw + toWithdraw);
 	}
 	
 	@Test
-	@DisplayName("Can't Credit 0 Test")
-	void cantCreditZeroTest() throws CreditingZeroException {
-		double toCredit = 0;
-		assertTrue(toCredit == 0);
+	@DisplayName("Can't Deposit 0 Test")
+	void cantDepositZeroTest() throws DepositingZeroException {
+		double toDeposit = 0;
+		assertTrue(toDeposit == 0);
 		
 		Exception thrownException = assertThrows(
-				CreditingZeroException.class, 
+				DepositingZeroException.class, 
 				() -> 
 				{
-					newAccount.credit(toCredit);
+					newAccount.deposit(toDeposit);
 				}
 		);
 	
-	assertTrue(thrownException.getMessage().contains("can't credit 0 ammount"));
+	assertTrue(thrownException.getMessage().contains("can't deposit 0 ammount"));
 		
 	}
 	
 	@Test
-	@DisplayName("Can't Debit 0 Test")
-	void cantDebitZeroTest() throws DebitingZeroException {
-		double toDebit = 0;
-		assertTrue(toDebit == 0);
+	@DisplayName("Can't Withdraw 0 Test")
+	void cantWithdrawZeroTest() throws WithdrawingZeroException {
+		double toWithdraw = 0;
+		assertTrue(toWithdraw == 0);
 		
 		Exception thrownException = assertThrows(
-				DebitingZeroException.class, 
+				WithdrawingZeroException.class, 
 				() -> 
 				{
-					newAccount.debit(toDebit);
+					newAccount.withdraw(toWithdraw);
 				}
 		);
 	
-	assertTrue(thrownException.getMessage().contains("can't debit 0 ammount"));
+	assertTrue(thrownException.getMessage().contains("can't withdraw 0 ammount"));
 		
 	}
+	
+
 	
 }

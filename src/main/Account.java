@@ -4,99 +4,101 @@ public class Account {
 	
 	int maxHistorySize = 100;
 
-	protected double[] credit;
-	protected double[] debit;
+	protected double[] deposit;
+	protected double[] withdraw;
 	
 	public Account() {
-		this.credit = new double[maxHistorySize];
-		this.debit = new double[maxHistorySize];
+		this.deposit = new double[maxHistorySize];
+		this.withdraw = new double[maxHistorySize];
 		for(int i = 0; i < maxHistorySize; i++) {
-			credit[i] = 0;
+			deposit[i] = 0;
 		}
 		
 	}
 	
-	public double getCredit() {
-		double totalCredit = 0;
+	public double getDeposit() {
+		double totalDeposit = 0;
 		for(int i = 0; i < maxHistorySize; i++) {
-			totalCredit += credit[i];
+			totalDeposit += deposit[i];
 		}
-		return totalCredit;
+		return totalDeposit;
 	}
 	
-	public double getDebit() {
-		double totalDebit = 0;
+	public double getWithdraw() {
+		double totalWithdraw = 0;
 		for(int i = 0; i < maxHistorySize; i++) {
-			totalDebit += debit[i];
+			totalWithdraw += withdraw[i];
 		}
-		return totalDebit;
+		return totalWithdraw;
 	}
 	
 	/**
-	 * adds credit
-	 * @param toCredit the credit to be added 
-	 * @throws CreditingZeroException 
+	 * adds deposit
+	 * @param toDeposit the deposit to be added 
+	 * @throws DepositingZeroException 
 	 */
-	public void credit(double toCredit) throws CreditingNegativeAmmountException, CreditingZeroException{
+	public void deposit(double toDeposit) throws DepositingNegativeAmmountException, DepositingZeroException{
 		
-		if(toCredit == 0) {
-			throw new CreditingZeroException("error");
+		if(toDeposit == 0) {
+			throw new DepositingZeroException("error");
 		}
-		if(toCredit <0) {
-			throw new CreditingNegativeAmmountException("error");
+		if(toDeposit <0) {
+			throw new DepositingNegativeAmmountException("error");
 		} else {
 			int firstEmpty = 0;
-			while((this.credit[firstEmpty] != 0)) {
+			while((this.deposit[firstEmpty] != 0)) {
 				firstEmpty++;
 				if(firstEmpty == maxHistorySize) {
 					break;
 				}
 			}
 			if(firstEmpty == maxHistorySize) {
-				this.credit[0] = this.getCredit();
+				this.deposit[0] = this.getDeposit();
 				for(int i = 1; i < maxHistorySize; i++) {
-					this.credit[i] = 0;
+					this.deposit[i] = 0;
 				}
 				firstEmpty = 1;
 			}
-			this.credit[firstEmpty] = toCredit;
+			this.deposit[firstEmpty] = toDeposit;
 		}
 	}
 
 	/**
-	 * add debit
-	 * @param toDebit the debit to be added
-	 * @throws DebitingZeroException 
+	 * add withdraw
+	 * @param toWithdraw the withdraw to be added
+	 * @throws WithdrawingZeroException 
+	 * @throws DepositingNegativeAmmountException 
+	 * @throws WithdrawingNegativeAmmountException 
 	 */
-	public void debit(double toDebit) throws DebitingNegativeAmmountException, DebitingZeroException{
-		if(toDebit == 0) {
-			throw new DebitingZeroException("error");
+	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmmountException, WithdrawingZeroException{
+		if(toWithdraw == 0) {
+			throw new WithdrawingZeroException("error");
 		}
-		if(toDebit < 0) {
-			throw new DebitingNegativeAmmountException("error");
+		if(toWithdraw < 0) {
+			throw new WithdrawingNegativeAmmountException("error");
 		} else {
 			int firstEmpty = 0;
-			while(this.debit[firstEmpty] != 0) {
+			while(this.withdraw[firstEmpty] != 0) {
 				firstEmpty++;
 				if(firstEmpty == maxHistorySize) {
 					break;
 				}
 			}
 			if(firstEmpty == maxHistorySize) {
-				this.debit[0] = this.getDebit();
+				this.withdraw[0] = this.getWithdraw();
 				for(int i = 1; i < maxHistorySize; i++) {
-					this.debit[i] = 0;
+					this.withdraw[i] = 0;
 				}
 				firstEmpty = 1;
 			}
-			this.debit[firstEmpty] = toDebit;	
+			this.withdraw[firstEmpty] = toWithdraw;	
 		}
 
 		
 	}
 
 	public Double getBalance() {
-		return getCredit() - getDebit();
+		return getDeposit() - getWithdraw();
 	}
 	
 	public int getMaxHistorySize() {
