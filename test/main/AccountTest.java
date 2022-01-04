@@ -37,13 +37,13 @@ public class AccountTest {
 	/**
 	 * test out that when we deposit into an account
 	 * the variable deposit is incremented by the same value
-	 * @throws DepositingNegativeAmmountException 
+	 * @throws DepositingNegativeAmountException 
 	 * @throws DepositingZeroException 
 	 * @throws DepositPassedLimitException 
 	 */
 	@Test
 	@DisplayName("Deposit Into Account Test")
-	public void depositIntoAccountTest() throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException {
+	public void depositIntoAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
 		double toDeposit = 10;
 		double depositBefore = newAccount.getDeposit();
 		newAccount.deposit(toDeposit);
@@ -53,14 +53,16 @@ public class AccountTest {
 	/**
 	 * test out that when we withdraw into an account
 	 * the variable withdraw is incremented by the same value
-	 * @throws DepositingNegativeAmmountException 
+	 * @throws DepositingNegativeAmountException 
 	 * @throws WithdrawingNegativeAmountException 
 	 * @throws WithdrawingZeroException 
 	 * @throws WithdrawPassedLimitException 
+	 * @throws DepositPassedLimitException 
+	 * @throws DepositingZeroException 
 	 */
 	@Test
 	@DisplayName("Withdraw From Account Test")
-	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException {
+	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.withdraw(toWithdraw);
@@ -73,7 +75,7 @@ public class AccountTest {
 		double toDeposit = -10;
 		assertTrue(toDeposit<0);
 		Exception thrownException = assertThrows(
-					DepositingNegativeAmmountException.class, 
+					DepositingNegativeAmountException.class, 
 					() -> 
 					{
 						newAccount.deposit(toDeposit);
@@ -101,7 +103,7 @@ public class AccountTest {
 	
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Test")
-	public void multipleOperationsTest() throws DepositingNegativeAmmountException, WithdrawingNegativeAmountException, 
+	public void multipleOperationsTest() throws DepositingNegativeAmountException, WithdrawingNegativeAmountException, 
 	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException {
 		double expectedBalance = 0.0;
 		double[] deposits = {123.4, 234.3, 874.2};

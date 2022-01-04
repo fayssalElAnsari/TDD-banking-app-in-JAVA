@@ -42,7 +42,7 @@ public class Account {
 	 * @throws DepositingZeroException 
 	 * @throws DepositPassedLimitException 
 	 */
-	public void deposit(double toDeposit) throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException{
+	public void deposit(double toDeposit) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException{
 		if(toDeposit > this.getDepositLimit()) {
 			throw new DepositPassedLimitException("error");
 		}
@@ -50,7 +50,7 @@ public class Account {
 			throw new DepositingZeroException("error");
 		}
 		if(toDeposit <0) {
-			throw new DepositingNegativeAmmountException("error");
+			throw new DepositingNegativeAmountException("error");
 		} else {
 			this.deposits.add(toDeposit);
 		}
@@ -60,7 +60,7 @@ public class Account {
 	 * add withdraw
 	 * @param toWithdraw the withdraw to be added
 	 * @throws WithdrawingZeroException 
-	 * @throws DepositingNegativeAmmountException 
+	 * @throws DepositingNegativeAmountException 
 	 * @throws WithdrawingNegativeAmountException 
 	 * @throws WithdrawPassedLimitException 
 	 */
