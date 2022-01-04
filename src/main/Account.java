@@ -46,7 +46,6 @@ public class Account {
 	}
 
 	public Double getBalance() {
-		// TODO Auto-generated method stub
-		return null;
+		return credit - debit;
 	}
 }

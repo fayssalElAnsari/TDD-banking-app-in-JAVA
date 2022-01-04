@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import util.MathFunc;
+
 class AccountTest {
 
 	protected Account newAccount;
@@ -96,8 +98,8 @@ class AccountTest {
 	@Test
 	@DisplayName("Multiple Credits & Debits Test")
 	void multipleOperationsTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException {
-		double expectedBalance = 0;
-		double[] credits = {123, 234, 874};
+		double expectedBalance = 0.0;
+		double[] credits = {123.4, 234.3, 874.2};
 		double[] debits = {145.7, 2378.4, 387.2};
 		for(double credit: credits) {
 			newAccount.credit(credit);
@@ -107,7 +109,9 @@ class AccountTest {
 			newAccount.debit(debit);
 			expectedBalance -= debit;
 		}	
-		assertEquals(newAccount.getBalance(), expectedBalance);
+		System.out.println(newAccount.getBalance() + "  " + expectedBalance);
+		assertTrue(MathFunc.round(newAccount.getBalance(), 2) == MathFunc.round(expectedBalance, 2));
+		
 		
 	}
 	
