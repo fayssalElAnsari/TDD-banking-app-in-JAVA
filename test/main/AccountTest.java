@@ -59,10 +59,11 @@ public class AccountTest {
 	 * @throws WithdrawPassedLimitException 
 	 * @throws DepositPassedLimitException 
 	 * @throws DepositingZeroException 
+	 * @throws SavingsAccountBelowZeroBalanceException 
 	 */
 	@Test
 	@DisplayName("Withdraw From Account Test")
-	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountBelowZeroBalanceException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.withdraw(toWithdraw);
@@ -104,7 +105,7 @@ public class AccountTest {
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Test")
 	public void multipleOperationsTest() throws DepositingNegativeAmountException, WithdrawingNegativeAmountException, 
-	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException {
+	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountBelowZeroBalanceException {
 		double expectedBalance = 0.0;
 		double[] deposits = {123.4, 234.3, 874.2};
 		double[] withdraws = {145.7, 2378.4, 387.2};

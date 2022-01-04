@@ -20,7 +20,7 @@ public class SavingsAccountTest extends AccountTest{
 	@Test
 	@DisplayName("Withdraw From Savings Account Test")
 	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, 
-		WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountBelowZeroBalanceException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.deposit(toWithdraw*10);
@@ -31,7 +31,7 @@ public class SavingsAccountTest extends AccountTest{
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Savings Account Test")
 	public void multipleOperationsTest() throws DepositingNegativeAmountException, WithdrawingNegativeAmountException, 
-	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException {
+	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountBelowZeroBalanceException {
 		double expectedBalance = 0.0;
 		double[] deposits = {1230.4, 2340.3, 874.2};
 		double[] withdraws = {145.7, 2378.4, 387.2};
@@ -71,6 +71,7 @@ public class SavingsAccountTest extends AccountTest{
 			);
 		assertTrue(thrownException.getMessage().contains("impossible to withdraw this amount"));
 	}
+	
 	
 	
 }

@@ -63,8 +63,9 @@ public class Account {
 	 * @throws DepositingNegativeAmountException 
 	 * @throws WithdrawingNegativeAmountException 
 	 * @throws WithdrawPassedLimitException 
+	 * @throws SavingsAccountBelowZeroBalanceException 
 	 */
-	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException{
+	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountBelowZeroBalanceException{
 		if(toWithdraw > this.getDepositLimit()) {
 			throw new WithdrawPassedLimitException("error");
 		}

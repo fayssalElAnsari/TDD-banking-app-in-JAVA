@@ -10,9 +10,10 @@ public class SavingsAccount extends Account {
 	 * @throws DepositingNegativeAmountException 
 	 * @throws WithdrawingNegativeAmountException 
 	 * @throws WithdrawPassedLimitException 
+	 * @throws SavingsAccountBelowZeroBalanceException 
 	 */
 	@Override
-	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException{
+	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountBelowZeroBalanceException{
 		if(toWithdraw > this.getDepositLimit()) {
 			throw new WithdrawPassedLimitException("error");
 		}
@@ -24,6 +25,8 @@ public class SavingsAccount extends Account {
 		} 
 		if(this.getBalance() - toWithdraw >= 0){
 			this.withdraws.add(toWithdraw);	
+		} else {
+			throw new SavingsAccountBelowZeroBalanceException("error");
 		}
 
 	}
