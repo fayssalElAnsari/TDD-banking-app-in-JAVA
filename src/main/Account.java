@@ -1,22 +1,35 @@
 package main;
 
 public class Account {
+	
+	int maxHistorySize = 100;
 
-	protected double credit;
-	protected double debit;
+	protected double[] credit;
+	protected double[] debit;
 	
 	public Account() {
-		this.credit = 0;
-		this.debit = 0;
+		this.credit = new double[maxHistorySize];
+		this.debit = new double[maxHistorySize];
+		for(int i = 0; i < maxHistorySize; i++) {
+			credit[i] = 0;
+		}
 		
 	}
 	
 	public double getCredit() {
-		return this.credit;
+		double totalCredit = 0;
+		for(int i = 0; i < maxHistorySize; i++) {
+			totalCredit += credit[i];
+		}
+		return totalCredit;
 	}
 	
 	public double getDebit() {
-		return this.debit;
+		double totalDebit = 0;
+		for(int i = 0; i < maxHistorySize; i++) {
+			totalDebit += debit[i];
+		}
+		return totalDebit;
 	}
 	
 	/**
@@ -27,7 +40,11 @@ public class Account {
 		if(toCredit <0) {
 			throw new CreditingNegativeAmmountException("error");
 		} else {
-			this.credit += toCredit;
+			int firstEmpty = 0;
+			while((this.credit[firstEmpty] != 0)) {
+				firstEmpty++;
+			}
+			this.credit[firstEmpty] = toCredit;
 		}
 	}
 
@@ -39,13 +56,21 @@ public class Account {
 		if(toDebit < 0) {
 			throw new DebitingNegativeAmmountException("error");
 		} else {
-			this.debit += toDebit;	
+			int firstEmpty = 0;
+			while(this.debit[firstEmpty] != 0) {
+				firstEmpty++;
+			}
+			this.debit[firstEmpty] = toDebit;	
 		}
 
 		
 	}
 
 	public Double getBalance() {
-		return credit - debit;
+		return getCredit() - getDebit();
+	}
+	
+	public int getMaxHistorySize() {
+		return this.maxHistorySize;
 	}
 }
