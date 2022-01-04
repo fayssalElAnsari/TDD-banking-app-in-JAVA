@@ -1,37 +1,37 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Account {
 	
 	private static final double depositLimit = 100000;
-
 	private static final double withdrawLimit = 100000;
 
-	int maxHistorySize = 100;
-
-	protected double[] deposit;
-	protected double[] withdraw;
+	protected List<Double> deposits;
+	protected List<Double> withdraws;
 	
 	public Account() {
-		this.deposit = new double[maxHistorySize];
-		this.withdraw = new double[maxHistorySize];
-		for(int i = 0; i < maxHistorySize; i++) {
-			deposit[i] = 0;
-		}
-		
+		this.deposits = new ArrayList<Double>();
+		this.withdraws = new ArrayList<Double>();
 	}
 	
 	public double getDeposit() {
 		double totalDeposit = 0;
-		for(int i = 0; i < maxHistorySize; i++) {
-			totalDeposit += deposit[i];
+		if(this.deposits.size() > 0) {
+			for(double deposit: this.deposits) {
+				totalDeposit += deposit;
+			}	
 		}
 		return totalDeposit;
 	}
 	
 	public double getWithdraw() {
 		double totalWithdraw = 0;
-		for(int i = 0; i < maxHistorySize; i++) {
-			totalWithdraw += withdraw[i];
+		if(this.withdraws.size() > 0) {
+			for(double withdraw: this.withdraws) {
+				totalWithdraw += withdraw;
+			}
 		}
 		return totalWithdraw;
 	}
@@ -52,21 +52,7 @@ public class Account {
 		if(toDeposit <0) {
 			throw new DepositingNegativeAmmountException("error");
 		} else {
-			int firstEmpty = 0;
-			while((this.deposit[firstEmpty] != 0)) {
-				firstEmpty++;
-				if(firstEmpty == maxHistorySize) {
-					break;
-				}
-			}
-			if(firstEmpty == maxHistorySize) {
-				this.deposit[0] = this.getDeposit();
-				for(int i = 1; i < maxHistorySize; i++) {
-					this.deposit[i] = 0;
-				}
-				firstEmpty = 1;
-			}
-			this.deposit[firstEmpty] = toDeposit;
+			this.deposits.add(toDeposit);
 		}
 	}
 
@@ -88,21 +74,7 @@ public class Account {
 		if(toWithdraw < 0) {
 			throw new WithdrawingNegativeAmmountException("error");
 		} else {
-			int firstEmpty = 0;
-			while(this.withdraw[firstEmpty] != 0) {
-				firstEmpty++;
-				if(firstEmpty == maxHistorySize) {
-					break;
-				}
-			}
-			if(firstEmpty == maxHistorySize) {
-				this.withdraw[0] = this.getWithdraw();
-				for(int i = 1; i < maxHistorySize; i++) {
-					this.withdraw[i] = 0;
-				}
-				firstEmpty = 1;
-			}
-			this.withdraw[firstEmpty] = toWithdraw;	
+			this.withdraws.add(toWithdraw);	
 		}
 
 		
@@ -111,16 +83,12 @@ public class Account {
 	public Double getBalance() {
 		return getDeposit() - getWithdraw();
 	}
-	
-	public int getMaxHistorySize() {
-		return this.maxHistorySize;
-	}
 
 	public double getDepositLimit() {
-		return this.depositLimit;
+		return Account.depositLimit;
 	}
 	
 	public double getWithdrawLimit() {
-		return this.withdrawLimit;
+		return Account.withdrawLimit;
 	}
 }

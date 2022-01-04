@@ -119,36 +119,6 @@ class AccountTest {
 	}
 	
 	@Test
-	@DisplayName("If No More Empty Space Combine Old Deposits")
-	void noMoreEmptySpaceWhileDepositTest() throws DepositingNegativeAmmountException, DepositingZeroException, DepositPassedLimitException {
-		int maxHistorySize = newAccount.getMaxHistorySize();
-		int currentHistoryIndex = 0;
-		double toDeposit = 10;
-		while(currentHistoryIndex <= maxHistorySize) {
-			newAccount.deposit(toDeposit);
-			currentHistoryIndex++;
-		}
-		double oldDeposit = this.newAccount.getDeposit();
-		this.newAccount.deposit(toDeposit);
-		assertTrue(this.newAccount.getDeposit() == oldDeposit + toDeposit);
-	}
-	
-	@Test
-	@DisplayName("If No More Empty Space Combine Old Withdraws")
-	void noMoreEmptySpaceWhileWithdrawTest() throws WithdrawingNegativeAmmountException, WithdrawingZeroException, WithdrawPassedLimitException {
-		int maxHistorySize = newAccount.getMaxHistorySize();
-		int currentHistoryIndex = 0;
-		double toWithdraw = 20;
-		while(currentHistoryIndex <= maxHistorySize) {
-			newAccount.withdraw(toWithdraw);
-			currentHistoryIndex++;
-		}
-		double oldWithdraw = this.newAccount.getWithdraw();
-		this.newAccount.withdraw(toWithdraw);
-		assertTrue(this.newAccount.getWithdraw() == oldWithdraw + toWithdraw);
-	}
-	
-	@Test
 	@DisplayName("Can't Deposit 0 Test")
 	void cantDepositZeroTest() throws DepositingZeroException {
 		double toDeposit = 0;
