@@ -43,6 +43,16 @@ public class Account {
 			int firstEmpty = 0;
 			while((this.credit[firstEmpty] != 0)) {
 				firstEmpty++;
+				if(firstEmpty == maxHistorySize) {
+					break;
+				}
+			}
+			if(firstEmpty == maxHistorySize) {
+				this.credit[0] = this.getCredit();
+				for(int i = 1; i < maxHistorySize; i++) {
+					this.credit[i] = 0;
+				}
+				firstEmpty = 1;
 			}
 			this.credit[firstEmpty] = toCredit;
 		}
@@ -59,6 +69,16 @@ public class Account {
 			int firstEmpty = 0;
 			while(this.debit[firstEmpty] != 0) {
 				firstEmpty++;
+				if(firstEmpty == maxHistorySize) {
+					break;
+				}
+			}
+			if(firstEmpty == maxHistorySize) {
+				this.debit[0] = this.getDebit();
+				for(int i = 1; i < maxHistorySize; i++) {
+					this.debit[i] = 0;
+				}
+				firstEmpty = 1;
 			}
 			this.debit[firstEmpty] = toDebit;	
 		}

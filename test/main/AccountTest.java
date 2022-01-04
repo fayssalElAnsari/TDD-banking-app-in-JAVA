@@ -133,13 +133,13 @@ class AccountTest {
 	void noMoreEmptySpaceWhileDebitTest() throws CreditingNegativeAmmountException, DebitingNegativeAmmountException {
 		int maxHistorySize = newAccount.getMaxHistorySize();
 		int currentHistoryIndex = 0;
-		double toDebit = 10;
+		double toDebit = 20;
 		while(currentHistoryIndex <= maxHistorySize) {
 			newAccount.debit(toDebit);
 			currentHistoryIndex++;
 		}
 		double oldDebit = this.newAccount.getDebit();
-		this.newAccount.credit(toDebit);
+		this.newAccount.debit(toDebit);
 		assertTrue(this.newAccount.getDebit() == oldDebit + toDebit);
 	}
 	
