@@ -25,12 +25,12 @@ public class Bank {
 	}
 
 	public void openAccount() {
-		// TODO Auto-generated method stub
+		this.accounts.add(new Account());
 		
 	}
 
 	public void openSavingsAccount(double interestRate) {
-		// TODO Auto-generated method stub
+		this.savingsAccounts.add(new SavingsAccount(interestRate));
 		
 	}
 

@@ -45,9 +45,9 @@ public class BankTest {
 	@Test
 	@DisplayName("Open New Savings Account Test")
 	public void openNewSavingsAccountTest() {
-		int oldSize = this.bank.getAccounts().size();
+		int oldSize = this.bank.getSavingsAccounts().size();
 		this.bank.openSavingsAccount(this.interestRate);
-		int newSize = this.bank.getAccounts().size();
+		int newSize = this.bank.getSavingsAccounts().size();
 		assertTrue(newSize == oldSize + 1);
 	}
 	
