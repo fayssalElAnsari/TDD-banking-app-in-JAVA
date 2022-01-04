@@ -92,4 +92,9 @@ public class Account {
 	public double getWithdrawLimit() {
 		return Account.withdrawLimit;
 	}
+
+	public Object getInterestRate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

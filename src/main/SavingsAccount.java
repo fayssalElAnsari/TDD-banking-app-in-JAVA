@@ -2,6 +2,12 @@ package main;
 
 public class SavingsAccount extends Account {
 	
+	protected double interest = 0.0;
+	
+	public SavingsAccount(double interest) {
+		super();
+		this.interest = interest;
+	}
 	
 	/**
 	 * add withdraw

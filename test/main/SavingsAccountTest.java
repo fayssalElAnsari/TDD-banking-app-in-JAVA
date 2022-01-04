@@ -14,7 +14,7 @@ public class SavingsAccountTest extends AccountTest{
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		this.newAccount = new SavingsAccount();
+		this.newAccount = new SavingsAccount(4.5);
 	}
 	
 	@Test
@@ -70,6 +70,14 @@ public class SavingsAccountTest extends AccountTest{
 				}
 			);
 		assertTrue(thrownException.getMessage().contains("impossible to withdraw this amount"));
+	}
+	
+	@Test
+	@DisplayName("Interest Rate Is Correct Test")
+	public void interestRateIsCorrectTest() {
+		double interestRate = 3.2;
+		newAccount = new SavingsAccount(interestRate);
+		assertEquals(newAccount.getInterestRate(), interestRate);
 	}
 	
 	
