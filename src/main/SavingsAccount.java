@@ -37,13 +37,12 @@ public class SavingsAccount extends Account {
 
 	}
 	
-	public Object getInterestRate() {
+	public double getInterestRate() {
 		return this.interestRate;
 	}
 
-	public void interestDeposit() {
-		
-		
+	public void interestDeposit() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		this.deposit(this.getBalance() * this.getInterestRate());
 	}
 
 }
