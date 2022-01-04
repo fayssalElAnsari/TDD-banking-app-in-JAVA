@@ -47,18 +47,30 @@ public class SavingsAccountTest extends AccountTest{
 		
 	}
 	
+//	@Test
+//	@DisplayName("Balance Can't Get Below Zero Test")
+//	public void balanceCantGetBelowZeroTeset() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException {
+//		double withdrawBefore = newAccount.getWithdraw();
+//		double balanceBefore = newAccount.getBalance();
+//		double toWithdraw = balanceBefore + 0.1;
+//		newAccount.withdraw(toWithdraw);
+//		assertEquals(newAccount.getWithdraw(), withdrawBefore);
+//		assertEquals(newAccount.getBalance(), balanceBefore);	
+//	}
+	
 	@Test
 	@DisplayName("Balance Can't Get Below Zero Test")
 	public void balanceCantGetBelowZeroTeset() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException {
-		double withdrawBefore = newAccount.getWithdraw();
 		double balanceBefore = newAccount.getBalance();
 		double toWithdraw = balanceBefore + 0.1;
-		newAccount.withdraw(toWithdraw);
-		assertEquals(newAccount.getWithdraw(), withdrawBefore);
-		assertEquals(newAccount.getBalance(), balanceBefore);
-		
+		Exception thrownException = assertThrows(
+				SavingsAccountBelowZeroBalanceException.class,
+				() -> {
+					newAccount.withdraw(toWithdraw);
+				}
+			);
+		assertTrue(thrownException.getMessage().contains("impossible to withdraw this amount"));
 	}
-	
 	
 	
 }
