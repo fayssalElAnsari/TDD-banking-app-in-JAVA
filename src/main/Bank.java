@@ -5,6 +5,13 @@ import java.util.List;
 
 import account.Account;
 import account.SavingsAccount;
+import exception.DepositPassedLimitException;
+import exception.DepositingNegativeAmountException;
+import exception.DepositingZeroException;
+import exception.SavingsAccountNegativeBalanceException;
+import exception.WithdrawPassedLimitException;
+import exception.WithdrawingNegativeAmountException;
+import exception.WithdrawingZeroException;
 
 public class Bank {
 	
@@ -34,23 +41,23 @@ public class Bank {
 		
 	}
 
-	public void accountDeposit(int i, int j) {
-		// TODO Auto-generated method stub
+	public void accountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		this.accounts.get(i).deposit(j);
 		
 	}
 
-	public void savingsAccountDeposit(int i, int j) {
-		// TODO Auto-generated method stub
+	public void savingsAccountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		this.savingsAccounts.get(i).deposit(j);
 		
 	}
 
-	public void accountWithdraw(int i, int j) {
-		// TODO Auto-generated method stub
+	public void accountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+		this.accounts.get(i).withdraw(j);
 		
 	}
 
-	public void savingsAccountWithdraw(int i, int j) {
-		// TODO Auto-generated method stub
+	public void savingsAccountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+		this.savingsAccounts.get(i).withdraw(j);
 		
 	}
 

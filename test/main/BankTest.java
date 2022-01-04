@@ -1,5 +1,6 @@
 package main;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -10,6 +11,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import account.Account;
 import account.SavingsAccount;
+import exception.DepositPassedLimitException;
+import exception.DepositingNegativeAmountException;
+import exception.DepositingZeroException;
+import exception.SavingsAccountNegativeBalanceException;
+import exception.WithdrawPassedLimitException;
+import exception.WithdrawingNegativeAmountException;
+import exception.WithdrawingZeroException;
 
 public class BankTest {
 	protected Bank bank;
@@ -55,43 +63,61 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Deposit Into Account Test")
-	public void depositIntoAccountTest() {
+	public void depositIntoAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		double toDeposit = 10000;
 		this.bank.openAccount();
-		this.bank.accountDeposit(0, 10000);
+		this.bank.accountDeposit(0, toDeposit);
+		assertTrue(this.bank.accounts.get(0).getDeposit() == toDeposit);
 	}
 	
 	@Test
 	@DisplayName("Deposit Into Savings Account Test")
-	public void depositIntoSavingsAccountTest() {
+	public void depositIntoSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		double toDeposit = 10000;
 		this.bank.openSavingsAccount(this.interestRate);
 		this.bank.savingsAccountDeposit(0, 10000);
+		assertTrue(this.bank.savingsAccounts.get(0).getDeposit() == toDeposit);
 	}
 	
 	@Test
 	@DisplayName("Withdraw From Account Test")
-	public void withdrawFromAccountTest() {
+	public void withdrawFromAccountTest() throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+		double toWithdraw = 10000;
 		this.bank.openAccount();
-		this.bank.accountWithdraw(0, 10000);
+		this.bank.accountWithdraw(0, toWithdraw);
+		assertTrue(this.bank.accounts.get(0).getWithdraw() == toWithdraw);
 	}
 	
 	@Test
 	@DisplayName("Withdraw From Savings Account Test")
-	public void withdrawFromSavingsAccountTest() {
+	public void withdrawFromSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+		double toWithdraw = 10000;
 		this.bank.openSavingsAccount(this.interestRate);
 		this.bank.savingsAccountDeposit(0, 20000);
-		this.bank.savingsAccountWithdraw(0, 10000);
+		this.bank.savingsAccountWithdraw(0, toWithdraw);
+		assertTrue(this.bank.savingsAccounts.get(0).getWithdraw() == toWithdraw);
 	}
 	
 	@Test
 	@DisplayName("Account Doesn't Exist Test")
-	public void accountDoesntExistTest() {
-		fail();
+	public void accountDoesntExistTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+		Exception thrownException = assertThrows( 
+					AccountDoesntExistException.class,
+					() -> {
+						this.bank.accountDeposit(0, 10000);
+					}
+				);
 	}
 	
 	@Test
 	@DisplayName("Savings Account Doesn't Exit Test")
 	public void savingsAccountDoesntExistTest() {
-		fail();
+		Exception thrownException = assertThrows( 
+				AccountDoesntExistException.class,
+				() -> {
+					this.bank.savingsAccountDeposit(0, 10000);
+				}
+			);
 	}
 	
 	@Test
