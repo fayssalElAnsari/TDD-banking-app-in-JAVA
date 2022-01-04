@@ -11,6 +11,7 @@ import account.SavingsAccount;
 
 public class BankTest {
 	protected Bank bank;
+	private double interestRate;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -20,6 +21,7 @@ public class BankTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		this.bank = new Bank();
+		this.interestRate = 3.2;
 	}
 
 	@Test
@@ -44,7 +46,7 @@ public class BankTest {
 	@DisplayName("Open New Savings Account Test")
 	public void openNewSavingsAccountTest() {
 		int oldSize = this.bank.getAccounts().size();
-		this.bank.openSavingsAccount();
+		this.bank.openSavingsAccount(this.interestRate);
 		int newSize = this.bank.getAccounts().size();
 		assertTrue(newSize == oldSize + 1);
 	}

@@ -29,7 +29,7 @@ public class Bank {
 		
 	}
 
-	public void openSavingsAccount() {
+	public void openSavingsAccount(double interestRate) {
 		// TODO Auto-generated method stub
 		
 	}
