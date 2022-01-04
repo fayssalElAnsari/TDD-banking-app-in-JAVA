@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import util.MathFunc;
 
 public class SavingsAccountTest extends AccountTest{
+	protected SavingsAccount newSavingsAccount;
 	
 	@BeforeEach
 	public void setUp() throws Exception {
@@ -76,10 +77,8 @@ public class SavingsAccountTest extends AccountTest{
 	@DisplayName("Interest Rate Is Correct Test")
 	public void interestRateIsCorrectTest() {
 		double interestRate = 3.2;
-		newAccount = new SavingsAccount(interestRate);
-		assertEquals(newAccount.getInterestRate(), interestRate);
+		this.newSavingsAccount = new SavingsAccount(interestRate);
+		assertEquals(this.newSavingsAccount.getInterestRate(), interestRate);
 	}
-	
-	
 	
 }

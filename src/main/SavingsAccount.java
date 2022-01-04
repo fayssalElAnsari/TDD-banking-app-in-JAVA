@@ -2,11 +2,11 @@ package main;
 
 public class SavingsAccount extends Account {
 	
-	protected double interest = 0.0;
+	protected double interestRate = 0.0;
 	
-	public SavingsAccount(double interest) {
+	public SavingsAccount(double interestRate) {
 		super();
-		this.interest = interest;
+		this.interestRate = interestRate;
 	}
 	
 	/**
@@ -35,6 +35,10 @@ public class SavingsAccount extends Account {
 			throw new SavingsAccountBelowZeroBalanceException("error");
 		}
 
+	}
+	
+	public Object getInterestRate() {
+		return this.interestRate;
 	}
 
 }
