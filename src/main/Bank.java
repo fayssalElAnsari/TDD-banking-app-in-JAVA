@@ -79,7 +79,9 @@ public class Bank {
 			this.accounts.get(fromAcc).withdraw(toSend);
 			this.accounts.get(toAcc).deposit(toSend);
 		} catch (Exception e) {
-			throw new AccountDoesntExistException("error");
+			if (e instanceof IndexOutOfBoundsException) {
+				throw new AccountDoesntExistException("error");
+			}
 		}
 		
 		
@@ -90,7 +92,9 @@ public class Bank {
 			this.savingsAccounts.get(fromSAcc).withdraw(toSend);
 			this.accounts.get(toAcc).deposit(toSend);
 		} catch (Exception e) {
-			throw new AccountDoesntExistException("error");
+			if (e instanceof IndexOutOfBoundsException) {
+				throw new AccountDoesntExistException("error");
+			}
 		}
 		
 		
