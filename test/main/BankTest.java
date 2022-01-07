@@ -131,7 +131,7 @@ public class BankTest {
 		this.bank.openAccount();
 		this.bank.accountDeposit(0, sendingAccountDeposit);
 		this.bank.transfertAA(0, 1, toSend);
-		assertTrue(this.bank.getAccounts().get(0).getDeposit() == sendingAccountDeposit-toSend);
+		assertTrue(this.bank.getAccounts().get(0).getBalance() == sendingAccountDeposit-toSend);
 		assertTrue(this.bank.getAccounts().get(1).getDeposit() == toSend);
 	}
 	
@@ -140,11 +140,11 @@ public class BankTest {
 	public void transferFromSavingsAccountToAccountTest() throws BankAccountException {
 		double toSend = 10000;
 		double sendingAccountDeposit = toSend*2;
-		this.bank.openSavingsAccount(sendingAccountDeposit);
+		this.bank.openSavingsAccount(this.interestRate);
+		this.bank.getSavingsAccounts().get(0).deposit(sendingAccountDeposit);
 		this.bank.openAccount();
-		this.bank.accountDeposit(0, sendingAccountDeposit);
-		this.bank.transfertSA(0, 1, toSend);
-		assertTrue(this.bank.getSavingsAccounts().get(0).getDeposit() == sendingAccountDeposit-toSend);
+		this.bank.transfertSA(0, 0, toSend);
+		assertTrue(this.bank.getSavingsAccounts().get(0).getBalance() == sendingAccountDeposit-toSend);
 		assertTrue(this.bank.getAccounts().get(0).getDeposit() == toSend);
 	}
 	

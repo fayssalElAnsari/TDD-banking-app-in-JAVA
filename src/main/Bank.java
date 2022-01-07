@@ -74,13 +74,25 @@ public class Bank {
 		this.savingsAccounts.get(i).withdraw(j);
 	}
 
-	public void transfertAA(int fromAcc, int toAcc, double toSend) {
-		// TODO Auto-generated method stub
+	public void transfertAA(int fromAcc, int toAcc, double toSend) throws BankAccountException {
+		try {
+			this.accounts.get(fromAcc).withdraw(toSend);
+			this.accounts.get(toAcc).deposit(toSend);
+		} catch (Exception e) {
+			throw new AccountDoesntExistException("error");
+		}
+		
 		
 	}
 
-	public void transfertSA(int fromSAcc, int toAcc, double toSend) {
-		// TODO Auto-generated method stub
+	public void transfertSA(int fromSAcc, int toAcc, double toSend) throws BankAccountException {
+		try {
+			this.savingsAccounts.get(fromSAcc).withdraw(toSend);
+			this.accounts.get(toAcc).deposit(toSend);
+		} catch (Exception e) {
+			throw new AccountDoesntExistException("error");
+		}
+		
 		
 	}
 
