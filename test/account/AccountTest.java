@@ -47,9 +47,6 @@ public class AccountTest {
 	/**
 	 * test out that when we deposit into an account
 	 * the variable deposit is incremented by the same value
-	 * @throws DepositingNegativeAmountException 
-	 * @throws DepositingZeroException 
-	 * @throws DepositPassedLimitException 
 	 */
 	@Test
 	@DisplayName("Deposit Into Account Test")
@@ -63,13 +60,6 @@ public class AccountTest {
 	/**
 	 * test out that when we withdraw into an account
 	 * the variable withdraw is incremented by the same value
-	 * @throws DepositingNegativeAmountException 
-	 * @throws WithdrawingNegativeAmountException 
-	 * @throws WithdrawingZeroException 
-	 * @throws WithdrawPassedLimitException 
-	 * @throws DepositPassedLimitException 
-	 * @throws DepositingZeroException 
-	 * @throws SavingsAccountNegativeBalanceException 
 	 */
 	@Test
 	@DisplayName("Withdraw From Account Test")
