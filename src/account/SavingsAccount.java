@@ -1,5 +1,6 @@
 package account;
 
+import exception.BankAccountException;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
@@ -27,7 +28,7 @@ public class SavingsAccount extends Account {
 	 * @throws SavingsAccountNegativeBalanceException 
 	 */
 	@Override
-	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException{
+	public void withdraw(double toWithdraw) throws BankAccountException {
 		if(toWithdraw > this.getDepositLimit()) {
 			throw new WithdrawPassedLimitException("error");
 		}
@@ -49,7 +50,7 @@ public class SavingsAccount extends Account {
 		return this.interestRate;
 	}
 
-	public void interestDeposit() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void interestDeposit() throws BankAccountException {
 		this.deposit(this.getBalance() * this.getInterestRate());
 	}
 

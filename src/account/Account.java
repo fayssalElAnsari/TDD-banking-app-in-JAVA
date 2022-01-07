@@ -3,6 +3,7 @@ package account;
 import java.util.ArrayList;
 import java.util.List;
 
+import exception.BankAccountException;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
@@ -50,7 +51,7 @@ public class Account {
 	 * @throws DepositingZeroException 
 	 * @throws DepositPassedLimitException 
 	 */
-	public void deposit(double toDeposit) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException{
+	public void deposit(double toDeposit) throws BankAccountException {
 		if(toDeposit > this.getDepositLimit()) {
 			throw new DepositPassedLimitException("error");
 		}
@@ -73,7 +74,7 @@ public class Account {
 	 * @throws WithdrawPassedLimitException 
 	 * @throws SavingsAccountNegativeBalanceException 
 	 */
-	public void withdraw(double toWithdraw) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException{
+	public void withdraw(double toWithdraw) throws BankAccountException {
 		if(toWithdraw > this.getDepositLimit()) {
 			throw new WithdrawPassedLimitException("error");
 		}

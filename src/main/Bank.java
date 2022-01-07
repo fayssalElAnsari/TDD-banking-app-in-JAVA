@@ -6,6 +6,7 @@ import java.util.List;
 import account.Account;
 import account.SavingsAccount;
 import exception.AccountDoesntExistException;
+import exception.BankAccountException;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
@@ -42,7 +43,7 @@ public class Bank {
 		
 	}
 
-	public void accountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
+	public void accountDeposit(int i, double j) throws BankAccountException {
 		if(i > this.accounts.size()-1) {
 			throw new AccountDoesntExistException("error");
 		}
@@ -50,7 +51,7 @@ public class Bank {
 		
 	}
 
-	public void savingsAccountDeposit(int i, double j) throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
+	public void savingsAccountDeposit(int i, double j) throws BankAccountException {
 		if(i > this.savingsAccounts.size()-1) {
 			throw new AccountDoesntExistException("error");
 		}
@@ -58,7 +59,7 @@ public class Bank {
 		
 	}
 
-	public void accountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
+	public void accountWithdraw(int i, double j) throws BankAccountException {
 		if(i > this.accounts.size()-1) {
 			throw new AccountDoesntExistException("error");
 		}
@@ -66,11 +67,21 @@ public class Bank {
 		
 	}
 
-	public void savingsAccountWithdraw(int i, double j) throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
+	public void savingsAccountWithdraw(int i, double j) throws BankAccountException {
 		if(i > this.savingsAccounts.size() - 1) {
 			throw new AccountDoesntExistException("error");
 		}
 		this.savingsAccounts.get(i).withdraw(j);
+	}
+
+	public void transfertAA(int fromAcc, int toAcc, double toSend) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void transfertSA(int fromSAcc, int toAcc, double toSend) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import account.Account;
 import account.SavingsAccount;
 import exception.AccountDoesntExistException;
+import exception.BankAccountException;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
@@ -64,7 +65,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Deposit Into Account Test")
-	public void depositIntoAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
+	public void depositIntoAccountTest() throws BankAccountException {
 		double toDeposit = 10000;
 		this.bank.openAccount();
 		this.bank.accountDeposit(0, toDeposit);
@@ -73,7 +74,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Deposit Into Savings Account Test")
-	public void depositIntoSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, AccountDoesntExistException {
+	public void depositIntoSavingsAccountTest() throws BankAccountException {
 		double toDeposit = 10000;
 		this.bank.openSavingsAccount(this.interestRate);
 		this.bank.savingsAccountDeposit(0, 10000);
@@ -82,7 +83,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Withdraw From Account Test")
-	public void withdrawFromAccountTest() throws WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
+	public void withdrawFromAccountTest() throws BankAccountException {
 		double toWithdraw = 10000;
 		this.bank.openAccount();
 		this.bank.accountWithdraw(0, toWithdraw);
@@ -91,7 +92,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Withdraw From Savings Account Test")
-	public void withdrawFromSavingsAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, WithdrawingNegativeAmountException, WithdrawingZeroException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException, AccountDoesntExistException {
+	public void withdrawFromSavingsAccountTest() throws BankAccountException {
 		double toWithdraw = 10000;
 		this.bank.openSavingsAccount(this.interestRate);
 		this.bank.savingsAccountDeposit(0, 20000);
@@ -101,7 +102,7 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Account Doesn't Exist Test")
-	public void accountDoesntExistTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void accountDoesntExistTest() throws BankAccountException {
 		Exception thrownException = assertThrows( 	
 					AccountDoesntExistException.class,
 					() -> {
@@ -123,26 +124,57 @@ public class BankTest {
 	
 	@Test
 	@DisplayName("Transfer From Account To Account Test")
-	public void transferFromAccountToAccountTest() {
-		fail();
-	}
-	
-	@Test
-	@DisplayName("Transfer From Account To Savings Account Test")
-	public void transferFromAccountToSavingsAccountTest() {
-		fail();
+	public void transferFromAccountToAccountTest() throws BankAccountException {
+		double toSend = 10000;
+		double sendingAccountDeposit = toSend*2;
+		this.bank.openAccount();
+		this.bank.openAccount();
+		this.bank.accountDeposit(0, sendingAccountDeposit);
+		this.bank.transfertAA(0, 1, toSend);
+		assertTrue(this.bank.getAccounts().get(0).getDeposit() == sendingAccountDeposit-toSend);
+		assertTrue(this.bank.getAccounts().get(1).getDeposit() == toSend);
 	}
 	
 	@Test
 	@DisplayName("Transfer From Savings Account To Account Test")
-	public void transferFromSavingsAccountToAccountTest() {
-		fail();
+	public void transferFromSavingsAccountToAccountTest() throws BankAccountException {
+		double toSend = 10000;
+		double sendingAccountDeposit = toSend*2;
+		this.bank.openSavingsAccount(sendingAccountDeposit);
+		this.bank.openAccount();
+		this.bank.accountDeposit(0, sendingAccountDeposit);
+		this.bank.transfertSA(0, 1, toSend);
+		assertTrue(this.bank.getSavingsAccounts().get(0).getDeposit() == sendingAccountDeposit-toSend);
+		assertTrue(this.bank.getAccounts().get(0).getDeposit() == toSend);
 	}
 	
 	@Test
-	@DisplayName("Transfer From Savings Account To Savings Account Test")
-	public void transferFromSavingsAccountToSavingsAccountTest() {
-		fail();
+	@DisplayName("Transfert One Of Accounts Doesn't Exist Test")
+	public void transfertOneOfAccountsDoesntExitTest() throws BankAccountException {
+		double toSend = 10000;
+		double sendingAccountDeposit = toSend*2;
+		this.bank.openAccount();
+		this.bank.accountDeposit(0, sendingAccountDeposit);
+		
+		Exception thrownException = assertThrows( 
+				AccountDoesntExistException.class,
+				() -> {
+					this.bank.transfertAA(0, 1, toSend);
+				}
+			);
 	}
+	
+//	@Test
+//	@DisplayName("Transfer From Account To Savings Account Test")
+//	public void transferFromAccountToSavingsAccountTest() {
+//		fail();
+//	}
+	
+	
+//	@Test
+//	@DisplayName("Transfer From Savings Account To Savings Account Test")
+//	public void transferFromSavingsAccountToSavingsAccountTest() {
+//		fail();
+//	}
 	
 }
