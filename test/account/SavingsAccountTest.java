@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import account.AccountTest;
 import account.SavingsAccount;
+import exception.BankAccountException;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
@@ -31,8 +32,7 @@ public class SavingsAccountTest extends AccountTest{
 	
 	@Test
 	@DisplayName("Withdraw From Savings Account Test")
-	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, 
-		WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void withdrawFromAccountTest() throws BankAccountException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.deposit(toWithdraw*10);
@@ -42,8 +42,7 @@ public class SavingsAccountTest extends AccountTest{
 	
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Savings Account Test")
-	public void multipleOperationsTest() throws DepositingNegativeAmountException, WithdrawingNegativeAmountException, 
-	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void multipleOperationsTest() throws BankAccountException {
 		double expectedBalance = 0.0;
 		double[] deposits = {1230.4, 2340.3, 874.2};
 		double[] withdraws = {145.7, 2378.4, 387.2};
@@ -72,7 +71,7 @@ public class SavingsAccountTest extends AccountTest{
 	
 	@Test
 	@DisplayName("Balance Can't Get Below Zero Test")
-	public void balanceCantGetBelowZeroTeset() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException {
+	public void balanceCantGetBelowZeroTeset() throws BankAccountException {
 		double balanceBefore = newAccount.getBalance();
 		double toWithdraw = balanceBefore + 0.1;
 		Exception thrownException = assertThrows(
@@ -92,7 +91,7 @@ public class SavingsAccountTest extends AccountTest{
 	
 	@Test
 	@DisplayName("Due Interest Deposit Test")
-	public void dueInterestDepositTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void dueInterestDepositTest() throws BankAccountException {
 		this.newSavingsAccount.deposit(10000);
 		double oldBalance = this.newSavingsAccount.getBalance();
 		this.newSavingsAccount.interestDeposit();

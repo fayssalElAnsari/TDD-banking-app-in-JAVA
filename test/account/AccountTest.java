@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import account.Account;
+import exception.BankAccountException;
 import exception.DepositPassedLimitException;
 import exception.DepositingNegativeAmountException;
 import exception.DepositingZeroException;
@@ -20,7 +21,6 @@ import util.MathFunc;
 
 public class AccountTest {
 	
-
 	protected Account newAccount;
 	
 	@BeforeAll
@@ -53,7 +53,7 @@ public class AccountTest {
 	 */
 	@Test
 	@DisplayName("Deposit Into Account Test")
-	public void depositIntoAccountTest() throws DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException {
+	public void depositIntoAccountTest() throws BankAccountException {
 		double toDeposit = 10;
 		double depositBefore = newAccount.getDeposit();
 		newAccount.deposit(toDeposit);
@@ -73,7 +73,7 @@ public class AccountTest {
 	 */
 	@Test
 	@DisplayName("Withdraw From Account Test")
-	public void withdrawFromAccountTest() throws WithdrawingZeroException, WithdrawingNegativeAmountException, WithdrawPassedLimitException, DepositingNegativeAmountException, DepositingZeroException, DepositPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void withdrawFromAccountTest() throws BankAccountException {
 		double toWithdraw = 10;
 		double withdrawBefore = newAccount.getWithdraw();
 		newAccount.withdraw(toWithdraw);
@@ -114,8 +114,7 @@ public class AccountTest {
 	
 	@Test
 	@DisplayName("Multiple Deposits & Withdraws Test")
-	public void multipleOperationsTest() throws DepositingNegativeAmountException, WithdrawingNegativeAmountException, 
-	DepositingZeroException, WithdrawingZeroException, DepositPassedLimitException, WithdrawPassedLimitException, SavingsAccountNegativeBalanceException {
+	public void multipleOperationsTest() throws BankAccountException {
 		double expectedBalance = 0.0;
 		double[] deposits = {123.4, 234.3, 874.2};
 		double[] withdraws = {145.7, 2378.4, 387.2};
